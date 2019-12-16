@@ -1,0 +1,1 @@
+export const ADD_NEW_COMPAIGN = 'ADD_NEW_COMPAIGN';
