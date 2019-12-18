@@ -42,6 +42,7 @@ class Row extends PureComponent {
     const { actionElements, showCampaignType, name, country, logo, date, className, index } = this.props;
     const viewPricingImage = 'images/price.png';
     const viewPricingLabel = 'View Pricing';
+    console.log(actionElements);
     return (
       <RowContainer className={className}>
         <td>
@@ -66,14 +67,16 @@ class Row extends PureComponent {
           </Button>
         </td>
         <td>
-          {actionElements.map(({ name, image, onClick }) => {
+          {actionElements.map(({ name, image, onClick }, idx) => {
+            console.log(actionElements[idx]);
             return !!onClick ? (
-              <span key={index} onClick={() => onClick(index)} className="item-component item-action">
+              <span key={idx} onClick={() => onClick(index)} className="item-component item-action">
                 <Image src={image} alt={name}  height="24" width="24"/>
                 <Text text={name} inheritedClass="campaign-action"/>
               </span>
             ) : (
-              <span key={index} className="item-component item-action">
+              
+              <span key={idx} className="item-component item-action">
                 <Image src={image} alt={name}  height="20" width="20"/>
                 <Text text={name} inheritedClass="campaign-action"/>
               </span>

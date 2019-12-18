@@ -35,7 +35,7 @@ class CampaignTable extends React.Component {
       date,
     }, () => {
       this.closeModal();
-      const selectedCampaign = campaignsData.find((item, itemIndex) => item.id === selectedIndex);
+      const selectedCampaign = campaignsData.find((item) => item.id === selectedIndex);
       addNewCompaign({
         ...selectedCampaign,
         date: (new Date(date)).getTime(),
@@ -79,10 +79,10 @@ class CampaignTable extends React.Component {
       {
         name: 'Schdeule Again',
         image: 'images/schedule.png',
-        onClick: index =>
+        onClick: selctedId =>
           this.setState({
             isDateModalOpen: true,
-            selectedIndex: index,
+            selectedIndex: selctedId,
           }),
       },
     ];
