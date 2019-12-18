@@ -27,6 +27,10 @@ export const CompaignContainer = styled.div`
     line-height: 24px;
   }
 
+  tr:not(:last-child) {
+    border-bottom: 1px solid #f1f1f4;
+  }
+
   .modal {
     display: flex;
     justify-content: center;

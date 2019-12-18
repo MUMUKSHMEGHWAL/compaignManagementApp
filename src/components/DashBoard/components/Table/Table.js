@@ -35,7 +35,7 @@ class CampaignTable extends React.Component {
       date,
     }, () => {
       this.closeModal();
-      const selectedCampaign = campaignsData.find((_item, itemIndex) => itemIndex === selectedIndex);
+      const selectedCampaign = campaignsData.find((item, itemIndex) => item.id === selectedIndex);
       addNewCompaign({
         ...selectedCampaign,
         date: (new Date(date)).getTime(),
@@ -106,7 +106,7 @@ class CampaignTable extends React.Component {
                   actionElements={actionElements}
                   showCampaignType={showCampaignType}
                   {...campaign}
-                  index={index}
+                  index={campaign.id}
                   key={index}
                 />
               ))}

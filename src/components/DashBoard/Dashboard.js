@@ -19,7 +19,7 @@ class Campaign extends React.Component {
   onTypeSelection = showCampaignType => {
     this.setState({
       showCampaignType
-    });
+    },() => document.body.removeAttribute('style'));
   }
 
   render() {

@@ -12,6 +12,6 @@ export const DashboardContainer = styled.div`
   }
 
   .main-container {
-    margin: 0 2rem;
+    margin: 0 2rem 2rem;
   }
 `;
