@@ -5,17 +5,17 @@ import Calendar from 'react-calendar';
 
 import { createNewItemAction } from './action';
 import Text from '../../../common/Text';
-import CampaignRow from '../Row';
+import Row from '../Row';
 
 import {CompaignContainer} from './Table.style';
 
-import { composeDate } from '../../../../core/utils';
+import { DateCreator } from '../../../../core/utils';
 
 class CampaignTable extends React.Component {
   constructor() {
     super();
     this.state = {
-      isScheduleOpen: false,
+      isDateModalOpen: false,
       date: new Date(),
       selectedIndex: undefined,
     };
@@ -24,7 +24,7 @@ class CampaignTable extends React.Component {
 
   closeModal = () => {
     this.setState({
-      isScheduleOpen: false,
+      isDateModalOpen: false,
     }, () => document.body.removeAttribute('style'));
   };
 
@@ -48,13 +48,13 @@ class CampaignTable extends React.Component {
     switch(showCampaignType) {
       case 'future':
         return campaignsData.filter(({date}) => {
-          return composeDate(date).formattedDate !== composeDate().formattedDate && composeDate(date).date.getTime() > composeDate().date.getTime()
+          return DateCreator(date).formattedDate !== DateCreator().formattedDate && DateCreator(date).date.getTime() > DateCreator().date.getTime()
         });
       case 'live':
-        return campaignsData.filter(({date}) => composeDate(date).formattedDate === composeDate().formattedDate);
+        return campaignsData.filter(({date}) => DateCreator(date).formattedDate === DateCreator().formattedDate);
       case 'past':
           return campaignsData.filter(({date}) => {
-            return composeDate(date).formattedDate !== composeDate().formattedDate && composeDate(date).date.getTime() < composeDate().date.getTime()
+            return DateCreator(date).formattedDate !== DateCreator().formattedDate && DateCreator(date).date.getTime() < DateCreator().date.getTime()
           });
       default:
         return campaignsData;
@@ -64,7 +64,7 @@ class CampaignTable extends React.Component {
 
   render() {
     const { className, showCampaignType } = this.props;
-    const tableHeads = ['Date', 'Campaign', 'View', 'Actions'];
+    const tableHeader = ['Date', 'Campaign', 'View', 'Actions'];
     const filteredCampaignData = this.getCompaignData();
 
     const actionElements = [
@@ -81,8 +81,7 @@ class CampaignTable extends React.Component {
         image: 'images/schedule.png',
         onClick: index =>
           this.setState({
-            isScheduleOpen: true,
-            isInfo: false,
+            isDateModalOpen: true,
             selectedIndex: index,
           }),
       },
@@ -96,14 +95,14 @@ class CampaignTable extends React.Component {
           <table>
             <thead>
               <tr>
-                {tableHeads.map((tableHead, index) => (
+                {tableHeader.map((tableHead, index) => (
                   <th key={index}>{tableHead}</th>
                 ))}
               </tr>
             </thead>
             <tbody>
               {filteredCampaignData.map((campaign, index) => (
-                <CampaignRow
+                <Row
                   actionElements={actionElements}
                   showCampaignType={showCampaignType}
                   {...campaign}
@@ -115,7 +114,7 @@ class CampaignTable extends React.Component {
           </table>
         )}
         <Popup
-          open={this.state.isScheduleOpen}
+          open={this.state.isDateModalOpen}
           closeOnDocumentClick
           onClose={this.closeModal}
           position="center center"

@@ -8,6 +8,7 @@ export default styled.tr`
 
   .name-section {
     display: flex;
+    flex-wrap: wrap;
   }
 
   .item-name {

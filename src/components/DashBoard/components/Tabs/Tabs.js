@@ -21,7 +21,7 @@ class Tabs extends PureComponent {
         value: 'past',
       },
     ];
-    const { headTextPrimary = 'Manage Campaigns', onTypeSelection, showCampaignType, className } = this.props;
+    const { headTextPrimary = 'Campaigns', onTypeSelection, showCampaignType, className } = this.props;
     return (
       <TabContainer className={className}>
         <Text text={headTextPrimary} Type="h1" />

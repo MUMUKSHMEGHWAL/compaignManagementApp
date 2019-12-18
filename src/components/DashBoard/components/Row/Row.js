@@ -8,23 +8,23 @@ import GetInfoModal from '../../../common/Modal';
 
 import RowContainer from './Row.style';
 
-import { composeDate, getDatesDiff } from '../../../../core/utils';
+import { DateCreator, getDatesDiff } from '../../../../core/utils';
 
 class Row extends PureComponent {
   state = {
-    isInfo: false,
+    isInfoModalOpen: false,
   };
 
-  handleInfoClick = () => {
+  showInfo = () => {
     this.setState({
-      isInfo: true,
+      isInfoModalOpen: true,
     });
   };
 
   closeModal = () => {
     this.setState({
-      isInfo: false,
-    })
+      isInfoModalOpen: false,
+    }, () => document.body.removeAttribute('style'))
   }
 
   getDaysLabel = daysLabel => {
@@ -45,22 +45,22 @@ class Row extends PureComponent {
     return (
       <RowContainer className={className}>
         <td>
-          <Button onClick={this.handleInfoClick} className="item-component">
-            <Text text={composeDate(date).displayDate} />
+          <div className="item-component">
+            <Text text={DateCreator(date).displayDate} />
             <Text text={`${getDatesDiff(date)} ${this.getDaysLabel(showCampaignType)}`} Type="p" inheritedClass="campaign-time"/>
-          </Button>
+          </div >
         </td>
         <td>
-          <Button onClick={this.handleInfoClick} className="item-component name-section">
+          <div  className="item-component name-section">
             <Image src={logo} alt={name} height="40" width="40" />
             <p className="item-name">
               <Text text={name} />
               <Text text={country} Type="p" inheritedClass="campaign-country"/>
             </p>
-          </Button>
+          </div >
         </td>
         <td>
-          <Button onClick={this.handleInfoClick} className="item-component">
+          <Button onClick={this.showInfo} className="item-component">
             <Image src={viewPricingImage} alt={viewPricingLabel} height="24" width="24"/>
             <Text text={viewPricingLabel} inheritedClass="campaign-price"/>
           </Button>
@@ -80,7 +80,7 @@ class Row extends PureComponent {
             );
           })}
           <Popup
-            open={this.state.isInfo}
+            open={this.state.isInfoModalOpen}
             closeOnDocumentClick
             onClose={this.closeModal}
             position="center center"
